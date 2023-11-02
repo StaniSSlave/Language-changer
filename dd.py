@@ -2,30 +2,39 @@ from tkinter import *
 import keyboard
 import pyperclip
 import time
-import pyautogui as pya
 
-inp_text = []
+selected_text = ""
+input_def_text = []
 t = 0
+
+
 def copy_clipboard():
-    global inp_text
-    pya.hotkey('ctrl', 'c')
-    time.sleep(.01)
-    inp_text = pyperclip.paste()
-    return inp_text
+    global selected_text
+    keyboard.press_and_release('ctrl+c')  # Simulate Ctrl+C to copy the selected text
+    time.sleep(.03)
+    selected_text = pyperclip.paste()
+    swap_let()
+    print(selected_text)
+
+
 def man_swap():
     global t
+    global input_def_text
+    print("C")
     t = 1
     input_def_text = inp_man_text.get("1.0", "end")
-    print(input_def_text)
+    print("D")
     swap_let()
+
+
 def swap_let():
     global t
+    global input_def_text
+    global selected_text
+    print("E")
     outp_word.delete("1.0", "end")
-    print(inp_text)
-    if t == 1:
-        input_def_text = inp_man_text.get("1.0", "end")
-    else:
-        input_def_text = inp_text
+    if t != 1:
+        input_def_text = selected_text
     ukrainian_layout = {
         'q': 'й', 'w': 'ц', 'e': 'у', 'r': 'к', 't': 'е', 'y': 'н', 'u': 'г', 'i': 'ш',
         'o': 'щ', 'p': 'з', 'a': 'ф', 's': 'і', 'd': 'в', 'f': 'а', 'g': 'п', 'h': 'р',
@@ -45,25 +54,25 @@ def swap_let():
             swapped_word += i
     outp_word.insert(END, swapped_word)
     t = 0
+    print("F")
 
-keyboard.add_hotkey('ctrl + y', lambda: copy_clipboard())
-keyboard.wait("ctrl + y")
 
 win = Tk()
 win.geometry()
 win.resizable(True, True)
 win.title(" TRANSLANATOR ")
 
-welcome_text = Label(text="Enter text here or select it and use Ctrl+C+C combination")
+welcome_text = Label(text="Enter text here or select it and use Ctrl+Y combination")
 inp_man_text = Text(win, height=10, width=25, bg="light yellow")
 outp_word = Text(win, height=10, width=25, bg="light cyan")
 display = Button(win, height=2, width=20, text="Convert", command=lambda: man_swap())
-swap_let()
+copy_button = Button(win, height=2, width=20, text="Convert selected text", command=lambda: copy_clipboard())
 
 welcome_text.pack()
 inp_man_text.pack()
 display.pack()
+copy_button.pack()
 outp_word.pack()
 
-mainloop()
 
+mainloop()
