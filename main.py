@@ -87,15 +87,15 @@ def swap_let_en():
     t = 0
 
 
-keyboard.add_hotkey('ctrl + u', lambda: copy_clipboard_ua())
-keyboard.add_hotkey('ctrl + e', lambda: copy_clipboard_en())
+keyboard.add_hotkey('Ctrl + y', lambda: copy_clipboard_ua())
+keyboard.add_hotkey('Ctrl + q', lambda: copy_clipboard_en())
 
 win = Tk()
 win.geometry()
 win.resizable(True, True)
 win.title(" TRANSLANATOR ")
 
-welcome_text = Label(text="Enter text here or select it and use Ctrl+Y combination")
+welcome_text = Label(text="Enter text here \tor \nCtrl+Y for EN-UA    or \nCtrl+Q for UA-EN")
 inp_man_text = Text(win, height=10, width=25, bg="light yellow")
 outp_word = Text(win, height=10, width=25, bg="light cyan")
 display_ua = Button(win, height=2, width=20, text="Convert EN-UA", command=lambda: man_swap_ua())
