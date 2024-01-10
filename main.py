@@ -7,6 +7,7 @@ import pyautogui as pya
 inp_text = []
 input_def_text = []
 t = 0
+
 def copy_clipboard_ua():
     global inp_text
     pya.hotkey('ctrl', 'c')
